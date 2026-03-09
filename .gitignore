@@ -1,0 +1,18 @@
+# Python 临时文件
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv/
+env/
+build/
+dist/
+
+# EpicDiary 隐私与本地配置
+diary/          # 严禁上传您的私人日记！
+config.yaml     # 严禁上传包含您本地绝对路径的配置文件
+TODO.md         # 个人待办清单不公开
+src/diagnose_weather.py
+
+# Streamlit 临时文件
+.streamlit/
