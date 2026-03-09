@@ -1,42 +1,14 @@
-# --- Python ---
+# Python 运行时生成的缓存
 __pycache__/
 *.py[cod]
-*$py.class
-*.so
-.Python
-env/
-build/
-develop-eggs/
-dist/
-downloads/
-eggs/
-.eggs/
-lib/
-lib64/
-parts/
-sdist/
-var/
-wheels/
-*.egg-info/
-.installed.cfg
-*.egg
 
-# --- Virtual Environment ---
-.venv/
-venv/
-ENV/
-
-# --- IDEs ---
-.vscode/
-.idea/
-*.swp
-*.swo
-
-# --- EpicDiary Local & Private ---
+# EpicDiary 隐私与本地配置
 diary/
 config.yaml
 TODO.md
+
+# 临时/诊断脚本
 src/diagnose_weather.py
 
-# --- Streamlit ---
+# Streamlit 运行时配置
 .streamlit/
