@@ -1,18 +1,42 @@
-# Python 临时文件
+# --- Python ---
 __pycache__/
 *.py[cod]
 *$py.class
-.env
-.venv/
+*.so
+.Python
 env/
 build/
+develop-eggs/
 dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+*.egg-info/
+.installed.cfg
+*.egg
 
-# EpicDiary 隐私与本地配置
-diary/          # 严禁上传您的私人日记！
-config.yaml     # 严禁上传包含您本地绝对路径的配置文件
-TODO.md         # 个人待办清单不公开
+# --- Virtual Environment ---
+.venv/
+venv/
+ENV/
+
+# --- IDEs ---
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# --- EpicDiary Local & Private ---
+diary/
+config.yaml
+TODO.md
 src/diagnose_weather.py
 
-# Streamlit 临时文件
+# --- Streamlit ---
 .streamlit/

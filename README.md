@@ -16,6 +16,11 @@
 - **极速保存**：支持“纯净保存”模式，秒记原话。
 - **档案管理**：支持日期回溯、全文搜索、编辑与删除。
 
+### 🛠️ 环境要求
+- **Python 3.10+**
+- **依赖库**: `streamlit`, `PyYAML`, `requests`
+- **[OpenClaw](https://github.com/OpenClaw/OpenClaw)** (用于对接 AI API)
+
 ### 🚀 快速开始
 1. **安装 OpenClaw** 并配置 AI 接口。
 2. 克隆仓库：`git clone https://github.com/ZRICHARD9527/epic-diary.git`
@@ -36,6 +41,11 @@
 - **Auto Weather**: Syncs real-time weather at the moment of recording.
 - **Pure Save**: Quick-save mode for original text without AI transformation.
 - **Archive Management**: Date tracing, full-text search, editing, and deletion.
+
+### 🛠️ Requirements
+- **Python 3.10+**
+- **Libraries**: `streamlit`, `PyYAML`, `requests`
+- **[OpenClaw](https://github.com/OpenClaw/OpenClaw)** (for connecting AI API)
 
 ### 🚀 Quick Start
 1. **Install OpenClaw** and configure AI API.
