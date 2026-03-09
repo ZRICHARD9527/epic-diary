@@ -8,7 +8,6 @@ CONFIG_PATH = os.path.join(BASE_DIR, "config.yaml")
 def load_config():
     """加载并解析 YAML 配置文件"""
     if not os.path.exists(CONFIG_PATH):
-        # 如果文件不存在，返回默认值
         return {
             "paths": {"diary_dir": "diary", "openclaw_cmd": "openclaw.cmd"},
             "ai_settings": {"default_city": "北京", "timeout_seconds": 60, "agent_name": "main"},
@@ -17,6 +16,18 @@ def load_config():
     
     with open(CONFIG_PATH, "r", encoding="utf-8") as f:
         return yaml.safe_load(f)
+
+def save_config(new_config):
+    """将配置写回文件"""
+    with open(CONFIG_PATH, "w", encoding="utf-8") as f:
+        yaml.safe_dump(new_config, f, allow_unicode=True)
+
+def update_setting(category, key, value):
+    """更新特定设置并保存"""
+    current_config = load_config()
+    if category in current_config:
+        current_config[category][key] = value
+        save_config(current_config)
 
 # 实例化全局配置对象
 config = load_config()
