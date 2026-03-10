@@ -18,7 +18,7 @@ st.set_page_config(
     layout="wide"
 )
 
-# --- 深度定制 CSS ---
+# --- 深度定制 CSS (v2.6.1 回归稳健版) ---
 radius = UI_SETTINGS.get("button_border_radius", "4px")
 st.markdown(f"""
     <style>

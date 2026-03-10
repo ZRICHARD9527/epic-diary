@@ -1,14 +1,13 @@
-# Python 运行时生成的缓存
-__pycache__/
-*.py[cod]
-
-# EpicDiary 隐私与本地配置
-diary/
+# Private & Local Data
 config.yaml
 TODO.md
+diary/
+eval_prompt.txt
 
-# 临时/诊断脚本
-src/diagnose_weather.py
+docs/
 
-# Streamlit 运行时配置
+# Python Environment
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
 .streamlit/

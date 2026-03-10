@@ -12,19 +12,20 @@
 ### ✨ 核心功能
 - **史诗编织**：将琐碎生活升华为史诗文学。
 - **Emoji 密语**：AI 自动提炼心情符号。
+- **Agent 隔离架构 (Isolated Agents)**：基于任务类型实现 AI 人格隔离（史诗编织官、项目评审官），确保隐私与专业度。
 - **自动天气**：同步记录时刻的真实天气。
 - **极速保存**：支持“纯净保存”模式，秒记原话。
 - **档案管理**：支持日期回溯、全文搜索、编辑与删除。
 
 ### 🛠️ 环境要求
 - **Python 3.10+**
-- **依赖库**: `streamlit`, `PyYAML`, `requests`
+- **依赖库**: `streamlit`, `PyYAML`, `requests`, `pandas`
 - **[OpenClaw](https://github.com/OpenClaw/OpenClaw)** (用于对接 AI API)
 
 ### 🚀 快速开始
 1. **安装 OpenClaw** 并配置 AI 接口。
 2. 克隆仓库：`git clone https://github.com/ZRICHARD9527/epic-diary.git`
-3. 安装依赖：`pip install streamlit PyYAML requests`
+3. 安装依赖：`pip install streamlit PyYAML requests pandas`
 4. 配置文件：将 `config.yaml.example` 重命名为 `config.yaml` 并填入您的 `openclaw.cmd` 路径。
 5. 启动：`python -m streamlit run src/web_diary.py`
 
@@ -38,25 +39,31 @@
 ### ✨ Key Features
 - **Epic Weaving**: Elevates daily life into grand epic literature.
 - **Emoji Cipher**: AI-generated mood summaries using emojis.
+- **Agent Isolation Architecture**: Task-specific AI agents (Diary Weaver, Project Critic) for better privacy and expertise.
 - **Auto Weather**: Syncs real-time weather at the moment of recording.
 - **Pure Save**: Quick-save mode for original text without AI transformation.
 - **Archive Management**: Date tracing, full-text search, editing, and deletion.
 
 ### 🛠️ Requirements
 - **Python 3.10+**
-- **Libraries**: `streamlit`, `PyYAML`, `requests`
+- **Libraries**: `streamlit`, `PyYAML`, `requests`, `pandas`
 - **[OpenClaw](https://github.com/OpenClaw/OpenClaw)** (for connecting AI API)
 
 ### 🚀 Quick Start
 1. **Install OpenClaw** and configure AI API.
 2. Clone repo: `git clone https://github.com/ZRICHARD9527/epic-diary.git`
-3. Install dependencies: `pip install streamlit PyYAML requests`
+3. Install dependencies: `pip install streamlit PyYAML requests pandas`
 4. Config: Rename `config.yaml.example` to `config.yaml` and set your `openclaw.cmd` path.
 5. Launch: `python -m streamlit run src/web_diary.py`
 
 ---
 
 ## 📜 CHANGELOG (更新日志)
+
+### [v3.0.0] - 2026-03-10
+- **架构大跳跃**：引入多 Agent 隔离系统 (`diary_weaver`, `project_critic`)，实现隐私保护与专业化分工。
+- **自动化评审系统**：部署基于 OpenClaw Cron 的 **AI 首席创意官 (CCO)** 机制，每晚自动审计代码并更新 TODO。
+- **心情复盘预研**：重构存储层支持 `mood_report.json`。
 
 ### [v2.6.1] - 2026-03-09
 - **UI 极致打磨**：实现主界面整体上移，压缩顶部留白。
@@ -76,21 +83,6 @@
 
 ### [v2.2.0] - 2026-03-08
 - **工程化重构**：引入配置管理，实现代码分层。
-- **性能优化**：合并 AI 任务，响应速度提升 2 倍。
-- **功能增强**：支持手动设置城市，新增全文搜索。
-
-### [v1.6.0] - 2026-03-08
-- **代码重构**：代码移至 `src` 目录，新增“纯净保存”功能。
-
-### [v1.5.0] - 2026-03-08
-- **交互升级**：支持 `Ctrl+Enter` 提交，新增侧边栏全文搜索。
-
-### [v1.2.0] - 2026-03-08
-- **网页化**：正式上线 Streamlit 驱动的 Web 界面。
-- **修复**：解决了 Windows 编码乱码问题和路径错误。
-
-### [v1.0.0] - 2026-03-08
-- **起源**：项目立项，完成基础日记存储与 AI 转换。
 
 ---
 
