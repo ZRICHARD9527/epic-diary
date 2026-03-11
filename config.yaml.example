@@ -1,21 +1,11 @@
-# EpicDiary 配置文件模板 (请重命名为 config.yaml 后使用)
-
-# 路径配置
+ai_settings:
+  api_key: "YOUR_VOLCENGINE_API_KEY_HERE"
+  base_url: "URL"
+  model_id: "YOUR_ENDPOINT_ID_HERE"
+  default_city: "南京"
+  timeout_seconds: 60
 paths:
   diary_dir: "diary"
-  # 这里需要填入您电脑上 openclaw.cmd 的真实路径
-  openclaw_cmd: "C:\\path\\to\\your\\openclaw.cmd"
-
-# AI 服务配置
-ai_settings:
-  default_city: "北京"
-  timeout_seconds: 120
-  agent_name: "main"
-
-# UI 界面配置
 ui_settings:
   page_title: "EpicDiary"
-  page_icon: "📖"
-  button_border_radius: "4px"
-  primary_color: "#4CAF50"
-  secondary_color: "#f8f9fa"
+  primary_color: "#7d6348"

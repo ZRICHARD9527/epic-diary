@@ -1,28 +1,19 @@
-# Private & Local Data
+# --- EpicDiary Git Protection ---
+
+# 1. Credentials & Secrets
 config.yaml
-TODO.md
+
+# 2. Personal Data (Privacy)
 diary/
-eval_prompt.txt
-temp_ai_prompt.txt
 
-# AI Review Logs & Evals
-docs/ai_reviews/
-eval_prompt.txt
 
-# Skill Development (Don't push source or packaged skills)
-skills/
-*.skill
+# 3. Database & Cache
+*.db
+backend/__pycache__/
+frontend/node_modules/
+frontend/dist/
 
-# Python Environment
-__pycache__/
-*.pyc
-.ipynb_checkpoints/
-.streamlit/
-.venv/
-env/
-
-# IDE & OS Specific
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
+# 6. Internal Management
+CORE_SPEC.md
+TODO.md
+start_all.ps1

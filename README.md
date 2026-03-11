@@ -2,63 +2,78 @@
 
 [English](#english) | [中文](#chinese)
 
+> **"好的设计，是让技术消失，让情感浮现。"**
+
+**EpicDiary** 已进化至 v4.0+ 时代。我们告别了 Streamlit 的局促，拥抱了 **FastAPI + React** 带来的极致优雅与丝滑响应。这不仅是一个记录工具，更是一部会呼吸的生命史诗。
+
 ---
 
 <a name="chinese"></a>
-## 中文介绍
+## ✨ v4.0 核心进化 (Fast Edition)
 
-**EpicDiary** 是一个基于 AI 的创意日记应用。它能将您日常平淡的记录，通过 **AI** 瞬间转化为一段充满戏剧冲突、波澜壮阔的“史诗”文学，并自动同步当日天气。
+### 🎨 视觉之魂：温润如玉
+- **宣纸材质**: 详情卡片引入细腻的宣纸纹理，模拟纸张在书桌上的触感。
+- **呼吸感布局**: 基于 **CORE_SPEC.md** 宪章，拒绝纯黑纯白，采用浅淡温暖的米色调。
+- **静默内敛**: 移除所有跳跃的干扰，让每一处阴影和偏移都服务于沉浸式书写。
 
-### ✨ 核心功能
-- **史诗编织**：将琐碎生活升华为史诗文学。
-- **Emoji 密语**：AI 自动提炼心情符号。
-- **Agent 隔离架构 (Isolated Agents)**：基于任务类型实现 AI 人格隔离（史诗编织官、项目评审官），确保隐私与专业度。
-- **自动天气**：同步记录时刻的真实天气。
-- **极速保存**：支持“纯净保存”模式，秒记原话。
-- **档案管理**：支持日期回溯、全文搜索、编辑与删除。
+### 🧠 交互哲学：无感交互
+- **极速响应**: 引入 **SQLite + FTS5** 索引层，实现历史记忆的秒级唤醒。
+- **宿命交织 (Fate Lines)**: 自动挖掘记忆间的隐形线条，展示与当前心境共鸣的历史瞬间。
+- **异步织梦**: 采用 FastAPI 后台任务，AI 编织过程不打断您的连续记录。
 
-### 🛠️ 环境要求
-- **Python 3.10+**
-- **依赖库**: `streamlit`, `PyYAML`, `requests`, `pandas`
-- **[OpenClaw](https://github.com/OpenClaw/OpenClaw)** (用于对接 AI API)
+### 🛠️ 技术栈
+- **Backend**: FastAPI (Python 3.10+)
+- **Frontend**: React + Vite + TypeScript (Lucide Icons)
+- **Database**: SQLite (FTS5 全文搜索)
+- **AI Engine**: Volcengine (火山引擎) 原生集成
 
-### 🚀 快速开始
-1. **安装 OpenClaw** 并配置 AI 接口。
-2. 克隆仓库：`git clone https://github.com/ZRICHARD9527/epic-diary.git`
-3. 安装依赖：`pip install streamlit PyYAML requests pandas`
-4. 配置文件：将 `config.yaml.example` 重命名为 `config.yaml` 并填入您的 `openclaw.cmd` 路径。
-5. 启动：`python -m streamlit run src/web_diary.py`
+---
+
+## 🚀 快速开始
+
+### 1. 克隆与配置
+```bash
+git clone https://github.com/ZRICHARD9527/epic-diary.git
+cd epic-diary
+```
+将 `config.yaml.example` 重命名为 `config.yaml` 并填入您的 **Volcengine API Key**。
+
+### 2. 启动后端 (Python)
+```bash
+cd backend
+pip install -r requirements.txt
+python main.py
+```
+
+### 3. 启动前端 (Node.js)
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
 
 <a name="english"></a>
-## English Introduction
+## 📖 English Introduction
 
-**EpicDiary** is an AI-powered creative diary application. It uses **AI** to transform your mundane daily logs into dramatic, magnificent "epic" narratives while automatically syncing the local weather.
+**EpicDiary** has evolved into the v4.0+ era, transitioning from Streamlit to a high-performance **FastAPI + React** architecture. 
 
-### ✨ Key Features
-- **Epic Weaving**: Elevates daily life into grand epic literature.
-- **Emoji Cipher**: AI-generated mood summaries using emojis.
-- **Agent Isolation Architecture**: Task-specific AI agents (Diary Weaver, Project Critic) for better privacy and expertise.
-- **Auto Weather**: Syncs real-time weather at the moment of recording.
-- **Pure Save**: Quick-save mode for original text without AI transformation.
-- **Archive Management**: Date tracing, full-text search, editing, and deletion.
-
-### 🛠️ Requirements
-- **Python 3.10+**
-- **Libraries**: `streamlit`, `PyYAML`, `requests`, `pandas`
-- **[OpenClaw](https://github.com/OpenClaw/OpenClaw)** (for connecting AI API)
-
-### 🚀 Quick Start
-1. **Install OpenClaw** and configure AI API.
-2. Clone repo: `git clone https://github.com/ZRICHARD9527/epic-diary.git`
-3. Install dependencies: `pip install streamlit PyYAML requests pandas`
-4. Config: Rename `config.yaml.example` to `config.yaml` and set your `openclaw.cmd` path.
-5. Launch: `python -m streamlit run src/web_diary.py`
+### Key Highlights:
+- **Visual Essence**: "Warm as Jade" aesthetic with handmade paper textures.
+- **Fate Lines**: Automatic discovery of connected memories using SQLite FTS5.
+- **Silent Immersion**: Non-blocking AI weaving and minimalist UI.
+- **Native AI**: Direct integration with Volcengine API for stability.
 
 ---
 
 ## 📜 CHANGELOG (更新日志)
+
+### [v4.7.3] - 2026-03-11
+- **重大架构迁移**：从 Streamlit 全面转向 FastAPI + React。
+- **视觉重塑**：引入宣纸材质、暖金色呼吸光晕与玻璃拟态通知。
+- **数据层升级**：启用 SQLite 混合索引，大幅提升“宿命交织”关联速度。
+- **AI 提示词优化**：DRAMA 叙事回归纯粹情感，支持自动提炼 THEMES 标签。
 
 ### [v3.0.0] - 2026-03-10
 - **架构大跳跃**：引入多 Agent 隔离系统 (`diary_weaver`, `project_critic`)，实现隐私保护与专业化分工。
@@ -66,33 +81,20 @@
 - **心情复盘预研**：重构存储层支持 `mood_report.json`。
 
 ### [v2.6.1] - 2026-03-09
-- **UI 极致打磨**：实现主界面整体上移，压缩顶部留白。
-- **侧边栏优化**：记录点文本实现左对齐与优雅的省略号截断。
-- **布局回归**：设置按钮回归侧边栏顶部，采用更稳健的 Popover 布局。
+- **UI 极致打磨**：实现主界面整体上移，压缩顶部留白；侧边栏记录点文本实现左对齐与优雅截断。
 
 ### [v2.5.0] - 2026-03-09
-- **配置持久化**：实现设置实时写回 `config.yaml`，偏好城市永久记住。
+- **配置持久化**：设置实时写回 `config.yaml`，偏好城市永久记住。
 - **布局锁定**：通过 CSS 强制锁定按钮水平排布，彻底解决窗口缩放时的走位问题。
 
 ### [v2.4.0] - 2026-03-09
-- **史诗感排版**：引入 Noto Serif SC 衬线体，增加引言边框装饰。
-- **交互升级**：增加内容卡片 Fade-In Up 动效，按钮内嵌至卡片边缘。
+- **史诗感排版**：引入 Noto Serif SC 衬线体，增加引言边框装饰与卡片 Fade-In 动效。
 
 ### [v2.3.0] - 2026-03-09
-- **存储结构重构**：由单文件模式升级为日期文件夹模式，提升数据隔离度与安全性。
-
-### [v2.2.0] - 2026-03-08
-- **工程化重构**：引入配置管理，实现代码分层。
-
-### [v1.6.0] - 2026-03-08
-- **代码重构**：代码移至 `src` 目录，新增“纯净保存”功能。
+- **存储结构重构**：由单文件模式升级为日期文件夹模式，提升数据隔离度。
 
 ### [v1.5.0] - 2026-03-08
-- **交互升级**：支持 `Ctrl+Enter` 提交，新增侧边栏全文搜索。
-
-### [v1.2.0] - 2026-03-08
-- **网页化**：正式上线 Streamlit 驱动的 Web 界面。
-- **修复**：解决了 Windows 编码乱码问题和路径错误。
+- **交互升级**：支持 `Ctrl+Enter` 提交，新增侧边栏全文搜索与“纯净保存”功能。
 
 ### [v1.0.0] - 2026-03-08
 - **起源**：项目立项，完成基础日记存储与 AI 转换。
