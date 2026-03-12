@@ -1,19 +1,33 @@
-# --- EpicDiary Git Protection ---
+# --- EpicDiary Strict Allowlist Mode ---
+# 默认忽略所有内容，只允许特定核心代码上传
 
-# 1. Credentials & Secrets
+# 1. 忽略根目录下的一切
+/*
+
+# 2. 显式允许的目录 (白名单)
+!/backend/
+!/frontend/
+
+# 3. 在允许的目录内，依然需要排除的子项
+/backend/__pycache__/
+/frontend/node_modules/
+/frontend/dist/
+/frontend/.vite/
+/frontend/package-lock.json
+
+# 4. 显式允许的根目录文件 (白名单)
+!/.gitignore
+!/README.md
+!/config.yaml.example
+
+# 5. 确保隐私和生成数据被拦截 (即使未来路径改变)
+# 虽然上面已经 /* 忽略了，但这里作为二次保险
 config.yaml
-
-# 2. Personal Data (Privacy)
 diary/
-
-
-# 3. Database & Cache
-*.db
-backend/__pycache__/
-frontend/node_modules/
-frontend/dist/
-
-# 6. Internal Management
+memory/
+auto_evolution/
 CORE_SPEC.md
 TODO.md
 start_all.ps1
+.env
+*.db

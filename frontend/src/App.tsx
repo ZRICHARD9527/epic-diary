@@ -3,7 +3,7 @@ import axios from 'axios';
 import { Settings, Search, Wand2, Save, Trash2, Calendar, MapPin, Edit3, X, ChevronRight, AlertCircle, Loader2 } from 'lucide-react';
 import './App.css';
 
-const API_BASE = "http://localhost:8000/api";
+const API_BASE = (import.meta as any).env?.VITE_API_BASE || "http://localhost:8000/api";
 
 interface DiaryEntry {
   ts: string; weather: string; real: string; drama: string; emoji: string;

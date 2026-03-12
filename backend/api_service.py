@@ -14,9 +14,13 @@ def generate_full_package(text, city="南京", max_retries=2):
     api_settings = config.get('ai_settings', {})
     
     api_key = api_settings.get('api_key')
-    base_url = api_settings.get('base_url', 'https://ark.cn-beijing.volces.com/api/v3')
-    model_id = api_settings.get('model_id', 'ep-20260212220341-2hlrx')
+    base_url = api_settings.get('base_url')
+    model_id = api_settings.get('model_id')
     timeout = api_settings.get('timeout_seconds', 60)
+
+    if not api_key or not base_url or not model_id:
+        logging.error("AI settings (api_key, base_url, or model_id) are missing in config.yaml")
+        return "🌫️ 配置缺失", "请检查 config.yaml 中的 AI 配置", "⚠️", "配置, 错误, 系统"
 
     prompt = f"""
     请为这段记忆赋予史诗感。
