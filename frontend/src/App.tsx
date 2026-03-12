@@ -14,10 +14,14 @@ interface DiaryEntry {
 const AppContext = React.createContext<any>(null);
 
 const AppProvider = ({ children }: { children: React.ReactNode }) => {
-  const [city, setCity] = useState("南京");
+  const [city, setCity] = useState(() => localStorage.getItem('epic_diary_city') || "南京");
   const [showSidebar, setShowSidebar] = useState(true);
   const [showSettings, setShowSettings] = useState(false);
   const [toast, setToast] = useState<{ message: string; type: 'success' | 'error' | 'info' } | null>(null);
+
+  useEffect(() => {
+    localStorage.setItem('epic_diary_city', city);
+  }, [city]);
 
   const showToast = (message: string, type: 'success' | 'error' | 'info' = 'info') => {
     setToast({ message, type });
@@ -35,16 +39,15 @@ const AppProvider = ({ children }: { children: React.ReactNode }) => {
 
 const useWeaving = (apiBase: string) => {
   const [isWeaving, setIsWeaving] = useState(false);
-  const [lastTaskId, setLastTaskId] = useState<string | null>(null);
 
-  const startWeaving = async (a: string, city: string, onComplete: (date: string, ts: string) => void) => {
-    if (!a.trim() || isWeaving) return;
+  const startWeaving = async (text: string, city: string, onComplete: (date: string, ts: string) => void) => {
+    if (!text.trim() || isWeaving) return;
     setIsWeaving(true);
     try {
-      const res = await axios.post(`${apiBase}/save/magic`, { text: a, city });
+      const res = await axios.post(`${apiBase}/save/magic`, { text, city });
       const { task_id, ts, date } = res.data;
-      setLastTaskId(task_id);
       
+      // 启动轮询
       const poll = setInterval(async () => {
         try {
           const statusRes = await axios.get(`${apiBase}/tasks/${task_id}`);
@@ -55,12 +58,13 @@ const useWeaving = (apiBase: string) => {
           } else if (statusRes.data.status.startsWith("failed")) {
             clearInterval(poll);
             setIsWeaving(false);
+            console.error("Weaving failed:", statusRes.data.status);
           }
         } catch (e) {
           clearInterval(poll);
           setIsWeaving(false);
         }
-      }, 2000);
+      }, 3000); // 间隔3秒轮询一次
     } catch (e) {
       setIsWeaving(false);
     }
@@ -139,10 +143,18 @@ const Sidebar = memo(({
           </div>
         </div>
         <div className="st-widget">
-          <label>日期</label>
-          <select className="st-select" value={selectedDate} onChange={e => setSelectedDate(e.target.value)}>
-            {dates.map((d: string) => <option key={d} value={d}>{d}</option>)}
-          </select>
+          <label>日期档案</label>
+          <div className="date-chip-scroller">
+            {dates.map((d: string) => (
+              <button 
+                key={d} 
+                className={`date-chip ${selectedDate === d ? 'active' : ''}`}
+                onClick={() => setSelectedDate(d)}
+              >
+                {d.substring(5)} {/* 只显示月-日，减小宽度 */}
+              </button>
+            ))}
+          </div>
         </div>
       </div>
 
@@ -330,17 +342,23 @@ const AppContent = () => {
       showToast("请输入一些内容", "error");
       return;
     }
-    startWeaving(input, city, async (date, ts) => {
-      setInput("");
-      // Optimization: Only fetch dates if current date differs
-      if (date !== selectedDate) {
-        await fetchDates();
-        setSelectedDate(date);
+    const textToWeave = input;
+    setInput(""); // 立即清空输入框，释放灵感
+    
+    startWeaving(textToWeave, city, async (date, ts) => {
+      // 编织完成后：只需静默刷新当前条目
+      if (date === selectedDate) {
+        refreshEntries(date, ts);
       }
-      refreshEntries(date, ts);
       showToast("史诗已编织入册", "success");
     });
-  }, [input, city, startWeaving, refreshEntries, fetchDates, showToast, selectedDate]);
+
+    // 立即刷新一次列表，以展示“编织中”的占位符条目
+    setTimeout(() => {
+      refreshEntries(selectedDate);
+    }, 500);
+
+  }, [input, city, startWeaving, refreshEntries, showToast, selectedDate]);
 
   const handlePureSave = useCallback(async () => {
     if (!input.trim()) return;

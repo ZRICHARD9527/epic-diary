@@ -2,13 +2,15 @@ import logging
 import random
 import re
 import json
-import os
 import requests
 from config_loader import load_config
 
+# 全局 Session 对象，实现连接池复用 (Keep-Alive)
+_SESSION = requests.Session()
+
 def generate_full_package(text, city="南京", max_retries=2):
     """
-    直接调用 Volcengine (火山引擎) 原生 API 进行史诗编织
+    通过全局 Session 连接池极速调用 AI API
     """
     config = load_config()
     api_settings = config.get('ai_settings', {})
@@ -23,21 +25,21 @@ def generate_full_package(text, city="南京", max_retries=2):
         return "🌫️ 配置缺失", "请检查 config.yaml 中的 AI 配置", "⚠️", "配置, 错误, 系统"
 
     prompt = f"""
-    请为这段记忆赋予史诗感。
+    请按照要求完成日记的史诗感转换。
     
-    【当下记录】："{text}"
-    【 atmospheric context 】：{city} (仅作氛围参考)
+    【日记】："{text}"
+    【城市】：{city} (注：仅供天气意象参考，不需要在史诗叙事中提及地名)
 
     请遵循以下要求：
-    1. DRAMA 部分应完全基于记录中的情感波动、思考或瞬间进行“史诗级转换”。
-    2. 追求纯粹的文学感和超越时间的叙事风格。
-    3. 风格温暖，字句精炼，大约 50-100 字。
+    1. DRAMA 部分必须聚焦于【日记】中的情感、动作或思想。
+    2. 追求极致的文学感，风格应如历史长卷般厚重或如诗歌般轻盈。
+    3. 字数控制在 50-100 字之间。
 
     请严格按以下格式输出：
-    WEATHER: <意象化天气，如：微雨洇墨 🌦️>
-    DRAMA: <史诗级转换内容>
-    THEMES: <3个情感或主题标签，用逗号分隔>
-    EMOJI: <3个相关Emoji意象>
+    WEATHER: <查询{city}的天气，并将其意象化表达（四个字和一个天气emoji）>
+    DRAMA: <基于日记内容的史诗感转换>
+    THEMES: <3个基于情感的主题标签>
+    EMOJI: <3个符合日记内容的Emoji>
     """
 
     for attempt in range(max_retries + 1):
@@ -52,8 +54,10 @@ def generate_full_package(text, city="南京", max_retries=2):
                 "temperature": 0.7
             }
             
-            logging.info(f"Direct Volcengine API call (Attempt {attempt+1})...")
-            resp = requests.post(f"{base_url}/chat/completions", headers=headers, json=data, timeout=timeout)
+            logging.info(f"Optimized Session API call (Attempt {attempt+1})...")
+            
+            # 使用全局 _SESSION 发送请求
+            resp = _SESSION.post(f"{base_url}/chat/completions", headers=headers, json=data, timeout=timeout)
             resp.raise_for_status()
             
             res_json = resp.json()
@@ -62,10 +66,10 @@ def generate_full_package(text, city="南京", max_retries=2):
             return _parse_weaver_content(content, text)
             
         except Exception as e:
-            logging.error(f"Volcengine API Attempt {attempt + 1} failed: {e}")
+            logging.error(f"API Attempt {attempt + 1} failed: {e}")
             if attempt < max_retries:
                 import time
-                time.sleep(2 ** attempt)  # 指数退避
+                time.sleep(2 ** attempt)
                 continue
             
             fallback_messages = [
@@ -79,7 +83,6 @@ def _parse_weaver_content(content, original_text):
     """
     解析 AI 返回的结构化内容
     """
-    # 改进的正则解析
     weather_match = re.search(r'WEATHER:\s*(.*)', content, re.IGNORECASE)
     drama_match = re.search(r'DRAMA:\s*(.*)', content, re.IGNORECASE | re.DOTALL)
     themes_match = re.search(r'THEMES:\s*(.*)', content, re.IGNORECASE)
@@ -88,14 +91,12 @@ def _parse_weaver_content(content, original_text):
     weather = weather_match.group(1).strip() if weather_match else "🌫️ 意象收敛中"
     drama = drama_match.group(1).strip() if drama_match else "[编织中断]"
     
-    # 截断处理：防止 AI 把后面的字段也塞进 DRAMA 里
     if "THEMES:" in drama: drama = drama.split("THEMES:")[0].strip()
     if "EMOJI:" in drama: drama = drama.split("EMOJI:")[0].strip()
 
     themes = themes_match.group(1).strip() if themes_match else "碎片, 时光, 宿命"
     raw_emoji = emoji_match.group(1).strip() if emoji_match else "📝"
     
-    # 提取 Emoji (过滤非 Emoji 字符)
     emoji_list = [c for c in raw_emoji if ord(c) > 127][:3]
     final_emoji = "".join(emoji_list) if emoji_list else "📝📜✨"
     

@@ -195,7 +195,7 @@ body, html { margin: 0; padding: 0; height: 100vh; font-family: "Source Sans Pro
 .card-header { display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #f0efed; padding-bottom: 1.5rem; margin-bottom: 2rem; }
 .card-meta { display: flex; gap: 1.5rem; color: var(--text-muted); font-size: 0.85rem; font-weight: 600; }
 .meta-item.weather { color: var(--primary); }
-.card-emoji-large { font-size: 2rem; }
+.card-emoji-large { font-size: 1.5rem; }
 
 .card-body { overflow: visible; }
 
@@ -209,7 +209,7 @@ body, html { margin: 0; padding: 0; height: 100vh; font-family: "Source Sans Pro
 .drama-segment { margin: 2rem 0; padding-left: 25px; border-left: 4px solid var(--primary); background: linear-gradient(to right, #faf9f7, transparent); }
 .drama-content { 
   font-family: 'Noto Serif SC', serif; 
-  font-size: 1.4rem; 
+  font-size: 1rem; 
   line-height: 2.0; 
   letter-spacing: 0.02em;
   color: #5c554d; 
@@ -465,7 +465,42 @@ body, html { margin: 0; padding: 0; height: 100vh; font-family: "Source Sans Pro
 .st-widget label { display: block; font-size: 0.75rem; color: var(--text-muted); font-weight: 700; text-transform: uppercase; margin-bottom: 0.5rem; }
 .st-input-wrapper { background: white; border: 1px solid rgba(0,0,0,0.05); border-radius: 8px; padding: 0.5rem 0.8rem; display: flex; align-items: center; gap: 0.6rem; }
 .st-input-wrapper input { background: transparent; border: none; outline: none; width: 100%; font-size: 0.9rem; }
-.st-select { width: 100%; background: white; border: 1px solid rgba(0,0,0,0.05); padding: 0.5rem; border-radius: 8px; outline: none; cursor: pointer; }
+
+/* Date Chip Scroller */
+.date-chip-scroller {
+  display: flex;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding: 0.4rem 0;
+  scrollbar-width: none; /* Firefox */
+}
+.date-chip-scroller::-webkit-scrollbar { display: none; } /* Chrome/Safari */
+
+.date-chip {
+  flex-shrink: 0;
+  padding: 0.4rem 0.8rem;
+  border-radius: 50px;
+  background: white;
+  border: 1px solid rgba(125, 99, 72, 0.08);
+  color: var(--text-muted);
+  font-size: 0.75rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.date-chip:hover {
+  background: rgba(125, 99, 72, 0.02);
+  border-color: var(--primary);
+  color: var(--primary);
+}
+
+.date-chip.active {
+  background: var(--primary);
+  color: white;
+  border-color: var(--primary);
+  box-shadow: 0 4px 12px rgba(125, 99, 72, 0.2);
+}
 
 /* Settings Dropdown */
 .settings-dropdown {
